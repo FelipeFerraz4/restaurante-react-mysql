@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const url = import.meta.env.VITE_DATABASE_URL;
+
 const db = axios.create({
-  baseURL: 'http://localhost:8800',
+  baseURL: url,
 });
 
 export default db;
