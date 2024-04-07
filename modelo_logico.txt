@@ -1,0 +1,42 @@
+
+MODELO LÓGICO
+
+Pessoa(codPessoa, nome, dataNascimento)
+Contato(codContato, telefone, email, codPessoa, dataHora) 
+    codPessoa referência a entidade Pessoa
+Endereco(codEndereco, cep, estado, cidade, bairro, rua, numero, complemento)
+PessoaEndereco(codPessoaEndereco, codPessoa, codEndereco, dataHora)
+    codPessoa referência a entidade Pessoa
+    codEndereco referência a entidade Endereco
+Transacao(codTransacao, remetente, destinatario, nome, valor, dataHora, meio, descricao)
+    remetente referência a entidade Pessoa
+    destinatario referência a entidade Pessoa
+Fornecedor(codPessoa, categoriaProduto, cnpj)
+    codPessoa referência a entidade Pessoa
+Funcionario(codPessoa, carteiraTrabalho, login, senha, cpf, codCargo)
+    codPessoa referência a entidade Pessoa
+    codCargo refencia a entidade Cargo
+Cliente(codPessoa, login, senha, cpf)
+    codPessoa referência a entidade Pessoa
+ItemEstoque(codItemEstoque, nome, categoria, preco, descricao, quantidade)
+Entrega(codEntrega, codPessoa, codItemEstoque, dataHoraSaida, dataHoraEntrega, meioEntrega)
+    codPessoa referência a entidade Fornecedor
+    codItemEstoque referência a entidade ItemEstoque
+Cargo(codCargo, nome, descricao, salario, permisao)
+Pedido(codPedido, status, funcionario, cliente, dataHora)
+    funcionario referência a entidade Funcionario
+    cliente referência a entidade cliente
+Mesa(codMesa, capacidade, status)
+Reserva(codReserva, codMesa, codPessoa, dataHora, adiantamento)
+    codPessoa referência a entidade Cliente
+    codMesa referência a entidade Mesa
+ItemCardapio(codItemCardapio, nome, valor, categoria, status)
+Preferencia(codPreferencia, cliente, codItemCardapio, dataHora)
+    codItemCardapio referência a entidade ItemCardapio
+    cliente refencia a entidade Cliente
+Preparar(codPreparar, codItemCardapio, codItemEstoque, dataHora)
+    codItemCardapio referência a entidade ItemCardapio
+    codItemEstoque referência a entidade ItemEstoque
+Contem(codContem, codPedido, codItemCardapio, dataHora)
+    codPedido referência a entidade Pedido
+    codItemCardapio referência a entidade ItemCardapio

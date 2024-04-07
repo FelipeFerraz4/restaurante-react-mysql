@@ -1,28 +1,15 @@
-import { useEffect, useState } from 'react';
-
-import { getItemCardapios } from '../../services/requests/cardapio';
+import AdicionarItemCardapio from '../../components/AdicionarItemCardapio';
+import Cardapio from '../../components/Cardapio';
+import { Container } from "./style";
 
 function Home() {
-    const [cardapio, setCardapio] = useState([]);
-
-    async function getCardapio() {
-        const res = await getItemCardapios();
-        console.log(res);
-        setCardapio(res);
-    }
+    // const [pedido, setPedido] = useState([]);
   
-    useEffect(() => {
-      getCardapio();
-    }, [setCardapio]);
-  
-    return(
-        <section>
-            {cardapio.map((item) => (
-                <div key={item.idItemCardapio}>
-                    <h2>{item.nome} - {item.descricao} - R$ {item.valor}</h2>
-                </div>
-                ))}
-        </section>
+    return (
+        <Container>
+            <AdicionarItemCardapio />
+            <Cardapio />
+        </Container>
     )
 }
 
