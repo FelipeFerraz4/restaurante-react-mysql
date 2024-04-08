@@ -2,7 +2,7 @@ import { db } from '../../db.js';
 
 export const getClientes = (req, res) => {
     try {
-        const query = 'SELECT * FROM clientes';
+        const query = 'SELECT * FROM cliente';
 
         db.query(query, (err, data) => {
             if(err){

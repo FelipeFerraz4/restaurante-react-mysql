@@ -51,7 +51,8 @@ CREATE TABLE restaurant.itemcardapio (
   categoria VARCHAR(50) NOT NULL,
   status VARCHAR(50) NOT NULL,
   descricao VARCHAR(255) NOT NULL,
-  PRIMARY KEY (idItemCardapio));
+  PRIMARY KEY (idItemCardapio)
+  );
 
 CREATE TABLE restaurant.contatos (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

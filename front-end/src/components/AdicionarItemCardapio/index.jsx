@@ -1,9 +1,82 @@
-import { useState } from 'react';
-export default function AdicionarItemCardapio() {
-    const [name, setName] = useState('')
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { newItemCardapios, updateItemCardapios } from '../../services/requests/cardapio';
+
+AdicionarItemCardapio.propTypes = {
+    adicionar: PropTypes.number,
+    setAdicionar: PropTypes.func,
+    cardapio: PropTypes.array
+};
+
+export default function AdicionarItemCardapio({adicionar, setAdicionar, cardapio}) {
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState();
+    const [category, setCategory] = useState('');
+    const [status, setStatus] = useState('');
+    const [description, setDescription] = useState('');
+    const [erro, setErro] = useState('');
+    const [button, setButton] = useState('Adicionar')
+
+    async function newItemCardapio(item) {
+        const res = await newItemCardapios(item);
+        console.log(res);
+    }
+
+    function clearInfo() {
+        setName('');
+        setPrice('');
+        setCategory('');
+        setStatus('');
+        setDescription('');
+    }
+
+    useEffect(() => {
+        console.log(adicionar);
+        if(adicionar != 0){
+            console.log(cardapio[adicionar-1].descricao);
+            setName(cardapio[adicionar-1].nome);
+            setPrice(cardapio[adicionar-1].valor);
+            setCategory(cardapio[adicionar-1].categoria);
+            setStatus(cardapio[adicionar-1].status);
+            setDescription(cardapio[adicionar-1].descricao);
+            setButton('Atualizar');
+        } else {
+            setButton('Adicionar');
+        }
+    
+      return () => {
+      }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [adicionar])
+    
 
     function handleAddItem() {
-
+        if(adicionar!=0) {
+            if(name!="" && price!=0 && category!='' && status!=''&& description!='') {
+                updateItemCardapios({
+                    name: name,
+                    price: price,
+                    category: category,
+                    status: status,
+                    description: description
+                }, adicionar);
+                setAdicionar(0);
+            }
+        } else {
+            if(name!="" && price!=0 && category!='' && status!=''&& description!='') {
+                newItemCardapio({
+                    name: name,
+                    price: price,
+                    category: category,
+                    status: status,
+                    description: description
+                })
+                setErro('Adicionado com sucesso');
+            } else {
+                setErro('Erro: Campos vazio');
+            }
+        }
+        clearInfo();
     }
 
     return(
@@ -16,20 +89,20 @@ export default function AdicionarItemCardapio() {
                 </div>
                 <div className="mx-3">
                     <label htmlFor="price" className="form-label">Preço:</label>
-                    <input type="number" step='0.01' className="form-control" id="price" placeholder="Preço do item" />
+                    <input value={price} onChange={(event) => setPrice(event.target.value)} type="number" step='0.01' className="form-control" id="price" placeholder="Preço do item" />
                 </div>
                 <div className="mx-3">
                     <label htmlFor="category" className="form-label">Categoria:</label>
-                    <select className="form-select" aria-label="Default select example" id="category">
+                    <select value={category} onChange={(event) => setCategory(event.target.value)} className="form-select" aria-label="Default select example" id="category">
                         <option selected>Escolha a categoria do produto</option>
-                        <option value="bebida">Bebida</option>
+                        <option value="Bebidas">Bebida</option>
                         <option value="Pizza">Pizza</option>
                         <option value="Sobremesa">Sobremesa</option>
                     </select>
                 </div>
                 <div className="mx-3">
                     <label htmlFor="status" className="form-label">Status do Item Cardapio:</label>
-                    <select className="form-select" aria-label="Default select example" id="status">
+                    <select value={status} onChange={(event) => setStatus(event.target.value)} className="form-select" aria-label="Default select example" id="status">
                         <option selected>Informe o status do item no cardapio</option>
                         <option value="Disponível">Disponível</option>
                         <option value="Indisponível">Indisponível</option>
@@ -41,10 +114,13 @@ export default function AdicionarItemCardapio() {
                 </div>
                 <div className="mx-3">
                     <label htmlFor="description" className="form-label">Descrição:</label>
-                    <input type="text" className="form-control" id="description" placeholder="Descreva o item do pedido" />
+                    <input value={description} onChange={(event) => setDescription(event.target.value)} type="text" className="form-control" id="description" placeholder="Descreva o item do pedido" />
                 </div>
-                <div className="my-3">
-                    <button onClick={handleAddItem} type="button" className="btn btn-primary mx-2">Adicionar</button>
+                <div className="m-3">
+                    <h6>{erro}</h6>
+                </div>
+                <div className="m-2">
+                    <button onClick={handleAddItem} type="button" className="btn btn-primary mx-2">{button}</button>
                 </div>
             </form>
         </div>

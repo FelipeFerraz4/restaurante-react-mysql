@@ -17,7 +17,7 @@ export const getItemCardapios = (req, res) => {
 
 export async function addItemCardapio(req, res) {
     try {
-        const query = 'INSERT INTO itemcardapio(`nome`, `valor`, `categoria`, `status`, `descricao`) VALUES(?)`';
+        const query = 'INSERT INTO itemcardapio(`nome`, `valor`, `categoria`, `status`, `descricao`) VALUES(?, ?, ?, ?, ?)';
 
         const values = [
             req.body.name,
@@ -26,10 +26,10 @@ export async function addItemCardapio(req, res) {
             req.body.status,
             req.body.description
         ];
-        
 
-        db.query(query, [values], (err) => {
+        db.query(query, [...values], (err) => {
             if(err){
+                console.log(err);
                 return res.json(err);
             }
             return res.status(201).json("item adicionado com sucesso");
@@ -41,7 +41,9 @@ export async function addItemCardapio(req, res) {
 
 export async function updateItemCardapio(req, res) {
     try {
-        const query = 'UPDATE itemcardapio SET `nome` = ?, `valor` = ?, `categoria` = ?, `status` = ?, `descricao` = ? WHERE `id` = ?';
+        console.log(req.body);
+        console.log(req.params.id);
+        const query = 'UPDATE itemcardapio SET `nome` = ?, `valor` = ?, `categoria` = ?, `status` = ?, `descricao` = ? WHERE `idItemCardapio` = ?';
 
         const values = [
             req.body.name,
@@ -50,7 +52,6 @@ export async function updateItemCardapio(req, res) {
             req.body.status,
             req.body.description
         ];
-        
 
         db.query(query, [...values, req.params.id], (err) => {
             if(err){
@@ -65,7 +66,7 @@ export async function updateItemCardapio(req, res) {
 
 export async function deleteItemCardapio(req, res) {
     try {
-        const query = 'DELETE FROM itemcardapio WHERE `id` = ?';
+        const query = 'DELETE FROM itemcardapio WHERE `idItemCardapio` = ?';
 
         db.query(query, [req.params.id], (err) => {
             if(err){
