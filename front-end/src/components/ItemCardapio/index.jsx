@@ -1,27 +1,24 @@
 import PropTypes from 'prop-types';
 
 // import { useState } from 'react';
+import { deleteItemCardapios } from '../../services/requests/cardapio';
 import { ItemCardapioAction, ItemCardapioContainer, ItemCardapioInfo } from './style';
 
-export default function ItemCardapio({id, name, description, price, setAdicionar}) {
-    // const [itemQuantity, setItemQuantity] = useState(1);
-    
-    // function changeItemQuantity(event) {
-    //     if (event.target.value < 0) {
-    //         setItemQuantity(0);
-    //     } else {
-    //         setItemQuantity(event.target.value);
-    //     }
-    // }
-
+export default function ItemCardapio({id, name, description, price, setIndex, idx}) {
     function handleUpdateItem() {
-        setAdicionar(id);
+        setIndex(id);
+        console.log('update' + (idx+1));
+        // setAction('update');
+    }
+    function handleDeleteItem() {
+        console.log(id);
+        deleteItemCardapios(id);
     }
 
     return(
         <ItemCardapioContainer className='my-2'>
             <ItemCardapioInfo className='m-2'>
-                <h5 className='mx-2'>{id}:</h5>
+                <h5 className='mx-2'>{idx}:</h5>
                 <h5 className='mx-2'>{name}:</h5>
             </ItemCardapioInfo>
             <ItemCardapioInfo>
@@ -33,17 +30,17 @@ export default function ItemCardapio({id, name, description, price, setAdicionar
             </ItemCardapioAction>
             <ItemCardapioAction className='m-2'>
                 <button onClick={handleUpdateItem} type="button" className="btn btn-primary mx-2">Atualizar</button>
-                <button type="button" className="btn btn-primary mx-2">Remover</button>
+                <button onClick={handleDeleteItem} type="button" className="btn btn-primary mx-2">Remover</button>
             </ItemCardapioAction>
         </ItemCardapioContainer>
     )
 }
 
 ItemCardapio.propTypes = {
+    idx: PropTypes.number,
     id: PropTypes.number,
     name: PropTypes.string,
     description: PropTypes.string,
     price: PropTypes.number,
-    setAdicionar: PropTypes.func,
-    // adicionar: PropTypes.number
+    setIndex: PropTypes.func,
 };

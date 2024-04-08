@@ -89,7 +89,8 @@ INSERT INTO restaurant.itemcardapio (nome, valor, categoria, status, descricao) 
 ('Cerveja Pilsen', 8.99, 'Bebidas', 'Disponível', 'Cerveja garrafa 600ml'),
 ('Cerveja Heineken', 9.50, 'Bebidas', 'Disponível', 'Cerveja garrafa 600ml'),
 ('Chope Pilsen', 7.50, 'Bebidas', 'Disponível', 'Chope de cerveja tipo Pilsen, 300ml'),
-('Vinho Tinto', 18.99, 'Bebidas', 'Disponível', 'Vinho tinto seco, garrafa 750ml');
+('Vinho Tinto', 18.99, 'Bebidas', 'Disponível', 'Vinho tinto seco, garrafa 750ml'),
+('Pizza de Carne de Sol', 34.5, 'Pizza', 'Disponível', 'Pizza com carne de sol, mussarela, cebola');
 
 INSERT INTO restaurant.contatos (telefone, email, pessoa, dataHora) VALUES
 ('1234567890', 'contato1@example.com', 1, '2024-04-07 08:00:00'),
@@ -254,7 +255,8 @@ INSERT INTO restaurant.preferencia (itemCardapio, cliente, dataHora) VALUES
 (7, 7, '2024-04-07 11:00:00'),
 (8, 8, '2024-04-07 11:30:00'),
 (9, 9, '2024-04-07 12:00:00'),
-(10, 10, '2024-04-07 12:30:00');
+(10, 10, '2024-04-07 12:30:00'),
+(1, 2, '2024-04-07 08:00:00');
 
 INSERT INTO restaurant.mesa (capacidade, status) VALUES
 (4, 'Disponível'),

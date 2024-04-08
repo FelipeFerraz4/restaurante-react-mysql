@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 import { newItemCardapios, updateItemCardapios } from '../../services/requests/cardapio';
 
 AdicionarItemCardapio.propTypes = {
-    adicionar: PropTypes.number,
-    setAdicionar: PropTypes.func,
+    index: PropTypes.number,
+    setIndex: PropTypes.func,
     cardapio: PropTypes.array
 };
 
-export default function AdicionarItemCardapio({adicionar, setAdicionar, cardapio}) {
+export default function AdicionarItemCardapio({index, setIndex, cardapio}) {
     const [name, setName] = useState('');
     const [price, setPrice] = useState();
     const [category, setCategory] = useState('');
@@ -31,14 +31,14 @@ export default function AdicionarItemCardapio({adicionar, setAdicionar, cardapio
     }
 
     useEffect(() => {
-        console.log(adicionar);
-        if(adicionar != 0){
-            console.log(cardapio[adicionar-1].descricao);
-            setName(cardapio[adicionar-1].nome);
-            setPrice(cardapio[adicionar-1].valor);
-            setCategory(cardapio[adicionar-1].categoria);
-            setStatus(cardapio[adicionar-1].status);
-            setDescription(cardapio[adicionar-1].descricao);
+        console.log(index);
+        if(index != 0){
+            // console.log(cardapio[index-1].descricao);
+            setName(cardapio[index-1].nome);
+            setPrice(cardapio[index-1].valor);
+            setCategory(cardapio[index-1].categoria);
+            setStatus(cardapio[index-1].status);
+            setDescription(cardapio[index-1].descricao);
             setButton('Atualizar');
         } else {
             setButton('Adicionar');
@@ -47,11 +47,11 @@ export default function AdicionarItemCardapio({adicionar, setAdicionar, cardapio
       return () => {
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [adicionar])
+    }, [index])
     
 
     function handleAddItem() {
-        if(adicionar!=0) {
+        if(index!=0) {
             if(name!="" && price!=0 && category!='' && status!=''&& description!='') {
                 updateItemCardapios({
                     name: name,
@@ -59,8 +59,8 @@ export default function AdicionarItemCardapio({adicionar, setAdicionar, cardapio
                     category: category,
                     status: status,
                     description: description
-                }, adicionar);
-                setAdicionar(0);
+                }, index);
+                setIndex(0);
             }
         } else {
             if(name!="" && price!=0 && category!='' && status!=''&& description!='') {

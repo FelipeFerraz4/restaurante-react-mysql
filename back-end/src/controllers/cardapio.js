@@ -41,8 +41,8 @@ export async function addItemCardapio(req, res) {
 
 export async function updateItemCardapio(req, res) {
     try {
-        console.log(req.body);
-        console.log(req.params.id);
+        // console.log(req.body);
+        // console.log(req.params.id);
         const query = 'UPDATE itemcardapio SET `nome` = ?, `valor` = ?, `categoria` = ?, `status` = ?, `descricao` = ? WHERE `idItemCardapio` = ?';
 
         const values = [
@@ -77,4 +77,19 @@ export async function deleteItemCardapio(req, res) {
     } catch (error) {
         console.log(error)
     }    
+}
+
+export const getItemPreferred = (req, res) => {
+    try {
+        const query = 'SELECT nome FROM itemcardapio WHERE idItemCardapio = (SELECT itemCardapio FROM preferencia GROUP BY itemCardapio ORDER BY COUNT(idPreferencia) DESC LIMIT 1)';
+
+        db.query(query, (err, data) => {
+            if(err){
+                return res.json(err);
+            }
+            return res.status(200).json(data);
+        })
+    } catch (error) {
+        console.log(error)
+    }
 }

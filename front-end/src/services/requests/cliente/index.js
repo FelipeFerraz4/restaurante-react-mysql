@@ -10,3 +10,14 @@ export async function getClientes() {
         return []
     }
 }
+
+export async function getClienteName() {
+    try {
+        const res = await db.get('/api/cliente/name');
+        console.log(res.data);
+        return res.data;
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+}
